@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "617606995837",
+    "project_id": "prueba-el-tiempo",
+    "storage_bucket": "prueba-el-tiempo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:617606995837:android:77d6b93e88f77231fb7614",
+        "android_client_info": {
+          "package_name": "com.davidcombita"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "617606995837-j8o5rj7l88joh38qd4v4053v6eq412pe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.davidcombita",
+            "certificate_hash": "1144ef784129b86d9cb9cb215af47a3d9109f62b"
+          }
+        },
+        {
+          "client_id": "617606995837-vdfqkkodldaf3bo8p35em66rmquskbf4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8IyERGja6jnbNzDjHv-GNjQmfSfjk8-A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "617606995837-gsk3c5ats2otc9hhbsd4t05te75ur3le.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

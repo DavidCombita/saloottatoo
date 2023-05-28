@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">TattoApp</string>
+    <string name="a_adir_producto">Añadir producto</string>
+    <string name="inicia_sesi_n_con_nosotros">Inicia sesión con nosotros:</string>
+    <string name="preference_local_key">com.davidcombita.preference</string>
+</resources>

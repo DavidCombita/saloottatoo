@@ -1,1 +1,2 @@
-# saloottatoo
+# Tattoapp
+Proyecto de software

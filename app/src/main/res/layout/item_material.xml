@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginTop="10dp"
+    app:cardBackgroundColor="@color/color_background">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <ImageView
+            android:id="@+id/imageview_icon_category"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/rounded_image_inventary"
+            android:src="@drawable/icon_agujas"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:importantForAccessibility="no" />
+
+        <TextView
+            android:id="@+id/textView_nameproduct"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:paddingStart="10dp"
+            android:paddingTop="5dp"
+            android:textColor="@color/black"
+            android:text="Agujas"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageview_icon_category"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:paddingStart="10dp"
+            android:paddingTop="5dp"
+            android:textColor="@color/black"
+            android:text="Cantidad de unidades:"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageview_icon_category"
+            app:layout_constraintTop_toBottomOf="@+id/textView_nameproduct" />
+
+        <TextView
+            android:id="@+id/textView_numQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:paddingHorizontal="10dp"
+            android:paddingTop="5dp"
+            android:textColor="@color/black"
+            android:text="15"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView_quantity"
+            app:layout_constraintTop_toBottomOf="@+id/textView_nameproduct" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
