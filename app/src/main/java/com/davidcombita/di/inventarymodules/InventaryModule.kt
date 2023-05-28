@@ -9,14 +9,16 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
+import javax.inject.Named
 
 @Module
-@InstallIn(ActivityComponent::class)
+@InstallIn(SingletonComponent::class)
 class InventaryModule {
 
     @Provides
-    fun provideApiService(retrofit: Retrofit): ApiMaterialService = retrofit.create(
+    fun provideApiService(@Named("RetrofitINVEN")retrofit: Retrofit): ApiMaterialService = retrofit.create(
         ApiMaterialService::class.java)
 
     @Provides

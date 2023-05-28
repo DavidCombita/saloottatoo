@@ -1,7 +1,5 @@
 package com.davidcombita.data.models
 
-import com.google.gson.annotations.SerializedName
-
 data class Material (
     val idCategory: Long,
     val idMaterial: Long,

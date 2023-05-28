@@ -40,6 +40,7 @@ android {
 
             buildConfigField("String", "TOKEN_ID_CLIENT_GOOGLE", "\"782863848579-10g2n6lh1lg3f0rmln1bm495ikoujqtb.apps.googleusercontent.com\"")
             buildConfigField("String", "BASE_INVEN", "\"https://localhost:8080/\"")
+            buildConfigField("String", "BASE_TATTO", "\"https://localhost:8081/\"")
         }
         prod{
             applicationId 'com.davidcombita'
@@ -47,6 +48,7 @@ android {
 
             buildConfigField("String", "TOKEN_ID_CLIENT_GOOGLE", "\"782863848579-10g2n6lh1lg3f0rmln1bm495ikoujqtb.apps.googleusercontent.com\"")
             buildConfigField("String", "BASE_INVEN", "\"https://inventario-ms.icyocean-fa738afd.southcentralus.azurecontainerapps.io/\"")
+            buildConfigField("String", "BASE_TATTO", "\"https://ms-tattoo.icyocean-fa738afd.southcentralus.azurecontainerapps.io\"")
         }
     }
     compileOptions {

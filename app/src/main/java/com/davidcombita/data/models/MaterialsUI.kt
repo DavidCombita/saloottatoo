@@ -11,3 +11,9 @@ data class CategoriesUI (
     val materialInfo: List<Categories> = emptyList(),
     val error: Boolean = false
 )
+
+data class TattosUI (
+    val loading: Boolean = false,
+    val tattoInfo: List<TattoResponse> = emptyList(),
+    val error: Boolean = false
+)

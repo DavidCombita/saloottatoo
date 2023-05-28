@@ -11,6 +11,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -32,9 +33,20 @@ object AppModule {
 
     @Provides
     @Singleton
+    @Named("RetrofitINVEN")
     fun provideRetrofit(gson: Gson, client: OkHttpClient): Retrofit =
         Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_INVEN)
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+
+    @Provides
+    @Singleton
+    @Named("RetrofitTATTO")
+    fun provideRetrofitTatto(gson: Gson, client: OkHttpClient): Retrofit =
+        Retrofit.Builder()
+            .baseUrl(BuildConfig.BASE_TATTO)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
