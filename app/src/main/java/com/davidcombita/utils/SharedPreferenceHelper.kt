@@ -33,6 +33,20 @@ class SharedPreferenceHelper(context: Context) {
         }
     }
 
+    fun saveIsLoggoutIn(): Boolean {
+        return try {
+            prefsEditor?.putBoolean(USER_LOGIN, false)
+            prefsEditor?.putString(USER_NAME, "")
+            prefsEditor?.putString(USER_TOKEN, "")
+            prefsEditor?.putString(USER_EMAIL, "")
+            prefsEditor?.apply()
+            true
+        }catch (e:Exception){
+            Log.e("Error save preference", e.message.toString())
+            false
+        }
+    }
+
     fun isUserLogin(): Boolean {
         return this.sp?.getBoolean(USER_LOGIN, false)?: false
     }

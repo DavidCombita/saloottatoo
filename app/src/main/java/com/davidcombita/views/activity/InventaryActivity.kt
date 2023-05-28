@@ -42,7 +42,7 @@ class InventaryActivity : AppCompatActivity() {
         add.setOnClickListener { startActivity(Intent(this@InventaryActivity, AddMaterialActivity::class.java)) }
 
         lifecycleScope.launch{
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
+            lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED){
                 viewModel.material.collect{ info ->
                     if(info.error){
                         Toast.makeText(this@InventaryActivity,
