@@ -9,5 +9,5 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="color_background">#D1D1C9</color>
-
+    <color name="color_background_trans">#85FFFFFF</color>
 </resources>

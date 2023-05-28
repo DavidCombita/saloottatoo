@@ -2,12 +2,18 @@ package com.davidcombita.views.activity
 
 import android.content.Intent
 import android.content.IntentSender
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.LinearLayoutCompat
+import androidx.lifecycle.lifecycleScope
 import com.davidcombita.R
 import com.davidcombita.utils.SharedPreferenceHelper
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
@@ -16,20 +22,50 @@ import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.CommonStatusCodes
+import com.google.android.recaptcha.Recaptcha
+import com.google.android.recaptcha.RecaptchaAction
+import com.google.android.recaptcha.RecaptchaClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import java.lang.Exception
+import kotlinx.coroutines.launch
+import java.io.IOException
 
 
 class LoginActivity : AppCompatActivity() {
 
+    private var progressNun1: Int = 0
+    private var progressNun2: Int = 0
+    private var progressNun3: Int = 0
+
+    private var currentIndex: Int=0
+    private val SITE_KEY = "6LfeekYmAAAAANVdywlRTb5Aq7WJ3ba_af5nTVsP"
+
     private lateinit var loginFacebookButton: ImageButton
+    private lateinit var imagelogin: ImageView
+    private lateinit var progress1: ProgressBar
+    private lateinit var progress2: ProgressBar
+    private lateinit var progress3: ProgressBar
+
     private lateinit var google: LinearLayoutCompat
     private lateinit var signInRequest: BeginSignInRequest
     private val RC_SIGN_IN = 200
     private lateinit var auth: FirebaseAuth
     private lateinit var oneTapClient: SignInClient
     private lateinit var sh: SharedPreferenceHelper
+    private lateinit var recaptchaClient: RecaptchaClient
+    private val handler = Handler()
+
+    private val imageList = listOf(R.drawable.tatto1, R.drawable.tatoo2, R.drawable.tatto3) // Lista de IDs de recursos de las imágenes
+
+    private val imageRunnable: Runnable = object : Runnable {
+        override fun run() {
+            imagelogin.setImageResource(imageList[currentIndex])
+
+            currentIndex = (currentIndex + 1) % imageList.size
+
+            handler.postDelayed(this, 5000)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +75,13 @@ class LoginActivity : AppCompatActivity() {
 
         google = findViewById(R.id.linearLayoutCompat_login_google)
         loginFacebookButton = findViewById(R.id.imagebutton_logingoogle)
+        imagelogin = findViewById(R.id.imageView_login)
+
+        progress1 = findViewById(R.id.progressBar1)
+        progress2 = findViewById(R.id.progressBar2)
+        progress3 = findViewById(R.id.progressBar3)
+
+        handler.postDelayed(imageRunnable, 5000)
 
         oneTapClient = Identity.getSignInClient(this)
         signInRequest = BeginSignInRequest.builder()
@@ -50,8 +93,51 @@ class LoginActivity : AppCompatActivity() {
                     .build())
             .build()
 
-        google.setOnClickListener { signInWithGoogle() }
-        loginFacebookButton.setOnClickListener { signInWithGoogle() }
+        configCaptcha()
+
+        google.setOnClickListener {  executeLoginAction() }
+        loginFacebookButton.setOnClickListener {  executeLoginAction() }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(sh.isUserLogin()){
+            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacks(imageRunnable)
+    }
+
+    private fun configCaptcha() {
+        lifecycleScope.launch {
+            Recaptcha.getClient(application, SITE_KEY)
+                .onSuccess { client ->
+                    recaptchaClient = client
+                    Toast.makeText(this@LoginActivity, "OK", Toast.LENGTH_SHORT).show()
+                }
+                .onFailure { exception ->
+                    Log.e("Error-----catpcha", exception.message.toString())
+                    Toast.makeText(this@LoginActivity, "ERROR", Toast.LENGTH_SHORT).show()
+                }
+        }
+    }
+
+    private fun executeLoginAction() {
+        lifecycleScope.launch {
+            recaptchaClient
+                .execute(RecaptchaAction.LOGIN)
+                .onSuccess { token ->
+                    Log.e("Error-----catpcha", token)
+                    Toast.makeText(this@LoginActivity, "CAPTCHA PROTECT OK", Toast.LENGTH_SHORT).show()
+                    signInWithGoogle()
+                }
+                .onFailure { exception ->
+                    Toast.makeText(this@LoginActivity, "ERROR CON CAPTCHA", Toast.LENGTH_SHORT).show()
+                }
+        }
     }
 
     private fun signInWithGoogle() {
@@ -131,15 +217,4 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
-        val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-        FirebaseAuth.getInstance().signInWithCredential(credential)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    Log.i("SEND", "Se envio el usuario y se guardo"+account.email)
-                } else {
-                    Log.e("ERROR_SAVE_USER", "Error al autenticar con Firebase: " + task.exception!!.message)
-                }
-            }
-    }
 }
