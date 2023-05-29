@@ -2,6 +2,7 @@ package com.davidcombita.data.api
 
 import com.davidcombita.data.models.Categories
 import com.davidcombita.data.models.Material
+import com.davidcombita.data.models.MaterialsTatto
 import com.google.android.gms.common.internal.safeparcel.SafeParcelable.Param
 import retrofit2.Response
 import retrofit2.http.Body
@@ -25,4 +26,8 @@ interface ApiMaterialService {
                                 @Query("nameProduct") nameProduct:String, @Query("nameBrand")nameBrand:String,
                                 @Query("quantity")quantity: Long,
                                 @Query("unitValue")unitValue:Long): Response<Material>
+
+    @GET("Inventary/getMaterialByTatto")
+    suspend fun getMaterialByTatto(@Query("tatto")tatto: Int): Response<List<MaterialsTatto>>
+
 }

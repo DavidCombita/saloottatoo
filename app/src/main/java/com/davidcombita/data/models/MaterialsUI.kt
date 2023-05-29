@@ -17,3 +17,8 @@ data class TattosUI (
     val tattoInfo: List<TattoResponse> = emptyList(),
     val error: Boolean = false
 )
+data class TattosMaterialUI (
+    val loading: Boolean = false,
+    val tattoMaterialInfo: List<MaterialsTatto> = emptyList(),
+    val error: Boolean = false
+)

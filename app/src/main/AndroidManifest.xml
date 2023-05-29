@@ -18,24 +18,29 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".views.activity.ReservActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.activity.DetailTattooActivity"
+            android:exported="false" />
+        <activity
             android:name=".views.activity.AddMaterialActivity"
             android:exported="false" />
         <activity
             android:name=".views.activity.LoginActivity"
-            android:exported="true" >
-                <intent-filter>
-                    <action android:name="android.intent.action.MAIN" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                    <category android:name="android.intent.category.LAUNCHER" />
-                </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".views.activity.InventaryActivity"
             android:exported="false" />
         <activity
             android:name=".views.activity.MainActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
     </application>
 
 </manifest>

@@ -1,17 +1,22 @@
 package com.davidcombita.views.adapters
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.davidcombita.R
 import com.davidcombita.data.models.TattoResponse
+import com.davidcombita.views.activity.DetailTattooActivity
 import com.squareup.picasso.Picasso
+import java.io.Serializable
 
-class TattoHomeAdapter : RecyclerView.Adapter<TattoViewHolder>() {
+class TattoHomeAdapter (val context: Context): RecyclerView.Adapter<TattoViewHolder>() {
 
     private lateinit var tattoList: List<TattoResponse>
 
@@ -26,6 +31,12 @@ class TattoHomeAdapter : RecyclerView.Adapter<TattoViewHolder>() {
             holder.tittle.text = tattoList[position].style
             Picasso.get().load(tattoList[position].resource[0].urlImage).error(R.drawable.tatto1)
                 .into(holder.image)
+
+            holder.itemView.setOnClickListener {
+                val intent = Intent(context, DetailTattooActivity::class.java)
+                intent.putExtra("infoDetailTatto", tattoList[position])
+                context.startActivity(intent)
+            }
         }
     }
 

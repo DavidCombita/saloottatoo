@@ -1,13 +1,14 @@
 package com.davidcombita.views.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -15,11 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.davidcombita.R
 import com.davidcombita.utils.SharedPreferenceHelper
-import com.davidcombita.viewmodels.InventaryViewModel
 import com.davidcombita.viewmodels.MainViewModel
 import com.davidcombita.views.adapters.TattoHomeAdapter
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -27,6 +26,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var layout: ConstraintLayout
     private lateinit var adapter: TattoHomeAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var sh: SharedPreferenceHelper
@@ -45,7 +45,9 @@ class MainActivity : AppCompatActivity() {
         val logout = findViewById<ImageButton>(R.id.imageButton_logout)
         val progress = findViewById<ProgressBar>(R.id.progressBar)
         recyclerView = findViewById(R.id.recyclerView_tattos)
-        adapter = TattoHomeAdapter()
+        layout = findViewById(R.id.layout_load)
+
+        adapter = TattoHomeAdapter(this)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
@@ -56,7 +58,13 @@ class MainActivity : AppCompatActivity() {
                         Toast.makeText(this@MainActivity,
                             "Error al traer la información", Toast.LENGTH_LONG).show()
                     }else{
-                        progress.visibility = if (info.loading) View.VISIBLE else View.GONE
+                        if (info.loading){
+                             layout.visibility = View.GONE
+                             progress.visibility =View.VISIBLE
+                        }else{
+                             layout.visibility = View.VISIBLE
+                             progress.visibility = View.GONE
+                        }
                         adapter.setList(info.tattoInfo)
                     }
                 }

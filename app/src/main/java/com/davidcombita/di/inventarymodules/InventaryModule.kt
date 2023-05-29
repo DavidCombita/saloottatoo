@@ -5,6 +5,7 @@ import com.davidcombita.domain.GetMaterialUseCase
 import com.davidcombita.repository.InventaryRepository
 import com.davidcombita.viewmodels.AddMateriaViewModel
 import com.davidcombita.viewmodels.InventaryViewModel
+import com.davidcombita.viewmodels.ReservaViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,4 +33,9 @@ class InventaryModule {
 
     @Provides
     fun provideAddViewModel(getInventaryUseCase: GetMaterialUseCase): AddMateriaViewModel = AddMateriaViewModel(getInventaryUseCase)
+
+    @Provides
+    fun provideReservaViewModel(getInventaryUseCase: GetMaterialUseCase): ReservaViewModel = ReservaViewModel(getInventaryUseCase)
+
+
 }

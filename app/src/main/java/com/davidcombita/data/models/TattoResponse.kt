@@ -1,5 +1,8 @@
 package com.davidcombita.data.models
 
+import java.io.Serializable
+
+
 data class TattoResponse (
     val idTattoo: Int,
     val size: String,
@@ -9,7 +12,7 @@ data class TattoResponse (
     val descriptionTatto: String,
     val price: Double,
     val resource: List<Resource>
-)
+): Serializable
 
 data class Resource (
     val idTattoo: Long,
@@ -17,4 +20,4 @@ data class Resource (
     val descResource: String,
     val urlImage: String,
     val typeResource: String
-)
+): Serializable
