@@ -31,6 +31,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ReservActivity : AppCompatActivity() {
 
+    private var tattoInfo: TattoResponse? = null
     private lateinit var adapter: MaterialAdapter
     private lateinit var txtStyle: TextView
     private lateinit var editNumbers: EditText
@@ -56,16 +57,16 @@ class ReservActivity : AppCompatActivity() {
         val back = findViewById<ImageButton>(R.id.imageButton_back)
         val reserva = findViewById<Button>(R.id.button_reservar)
 
-        val tattoInfo = intent.serializable<TattoResponse>("infoReservaTatto")
+        tattoInfo = intent.serializable<TattoResponse>("infoReservaTatto")
 
         if (tattoInfo != null) {
             gallery.layoutManager = LinearLayoutManager(
                 this, LinearLayoutManager.HORIZONTAL,
                 false
             )
-            gallery.adapter = GalleryAdapter(tattoInfo.resource)
-            txtStyle.text = tattoInfo.style
-            viewModel.getMaterialsTattos(tattoInfo.idTattoo)
+            gallery.adapter = GalleryAdapter(tattoInfo!!.resource)
+            txtStyle.text = tattoInfo!!.style
+            viewModel.getMaterialsTattos(tattoInfo!!.idTattoo)
             adapter = MaterialAdapter()
             materials.adapter = adapter
             materials.layoutManager = LinearLayoutManager(
@@ -111,7 +112,19 @@ class ReservActivity : AppCompatActivity() {
         }
 
         reserva.setOnClickListener {
-            Toast.makeText(this@ReservActivity, "Reservado, pronto te llegara la info al celular",
+            if(datePicker.text.toString().isEmpty()){
+                Toast.makeText(this@ReservActivity, "Ingrese una fecha",
+                    Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if(editNumbers.text.toString().isEmpty()){
+                Toast.makeText(this@ReservActivity, "Ingrese un numero de telefono",
+                    Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            viewModel.sendReserva("+57"+editNumbers.text.toString(), datePicker.text.toString(),
+                tattoInfo?.style?: "blackWork", tattoInfo?.size?: "5x5")
+            Toast.makeText(this@ReservActivity, "Reservado, pronto nuestro tatuador se contactara contigo",
             Toast.LENGTH_SHORT).show()
             startActivity(Intent(this@ReservActivity, MainActivity::class.java))
         }

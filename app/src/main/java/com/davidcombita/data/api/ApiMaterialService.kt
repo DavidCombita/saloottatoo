@@ -30,4 +30,9 @@ interface ApiMaterialService {
     @GET("Inventary/getMaterialByTatto")
     suspend fun getMaterialByTatto(@Query("tatto")tatto: Int): Response<List<MaterialsTatto>>
 
+    @POST("SMS/send-sms")
+    suspend fun getSendReserva(@Query("to") toNumber: String, @Query("fecha")fecha: String,
+                               @Query("style")style: String, @Query("size")size: String)
+
+
 }

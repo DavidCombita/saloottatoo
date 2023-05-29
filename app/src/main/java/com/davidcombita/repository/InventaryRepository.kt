@@ -5,6 +5,7 @@ import com.davidcombita.data.models.Categories
 import com.davidcombita.data.models.Material
 import com.davidcombita.data.models.MaterialsTatto
 import retrofit2.Response
+import retrofit2.http.Query
 import javax.inject.Inject
 
 class InventaryRepository @Inject constructor(
@@ -20,5 +21,10 @@ class InventaryRepository @Inject constructor(
     }
 
     suspend fun  getMaterialByTatto(tatto: Int): Response<List<MaterialsTatto>> = apiMaterialService.getMaterialByTatto(tatto)
+
+    suspend fun sendReserva(toNumber: String, fecha: String,
+                             style: String, size: String){
+        apiMaterialService.getSendReserva(toNumber, fecha, style, size)
+    }
 
 }

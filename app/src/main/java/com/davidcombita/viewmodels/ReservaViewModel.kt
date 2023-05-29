@@ -31,4 +31,11 @@ class ReservaViewModel @Inject constructor(
             _material.update { it.copy(loading = false) }
         }
     }
+
+    fun sendReserva(toNumber: String, fecha: String,
+                    style: String, size: String){
+        viewModelScope.launch{
+            getMaterialUseCase.sendReserva(toNumber, fecha, style, size)
+        }
+    }
 }

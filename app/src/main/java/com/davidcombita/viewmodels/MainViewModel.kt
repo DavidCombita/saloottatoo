@@ -1,5 +1,6 @@
 package com.davidcombita.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.davidcombita.data.models.MaterialsUI
@@ -21,13 +22,19 @@ class MainViewModel @Inject constructor(
     fun getTattos(){
         viewModelScope.launch{
             _tatto.update { it.copy(loading = true) }
-            val material = getTattoUseCase.invoke()
-            if(material.isSuccessful){
-                _tatto.update { it.copy(tattoInfo = material.body()!!, error = false) }
-            }else{
+            try{
+                val material = getTattoUseCase.invoke()
+                if(material.isSuccessful){
+                    _tatto.update { it.copy(tattoInfo = material.body()!!, error = false) }
+                }else{
+                    _tatto.update { it.copy(error = true) }
+                }
+                _tatto.update { it.copy(loading = false) }
+            }catch (e: Exception){
+                Log.e("Error----", e.message.toString())
                 _tatto.update { it.copy(error = true) }
+                _tatto.update { it.copy(loading = false) }
             }
-            _tatto.update { it.copy(loading = false) }
         }
     }
 

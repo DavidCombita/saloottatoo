@@ -14,8 +14,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="icon_fire" />
-                            <entry key="sourceFile" value="$PROJECT_DIR$/../Downloads/5243645_burn_fire_flame_hot_icon.svg" />
+                            <entry key="outputName" value="icon_app" />
+                            <entry key="sourceFile" value="$PROJECT_DIR$/../Downloads/icon_app.svg" />
                           </map>
                         </option>
                       </PersistentState>

@@ -42,7 +42,9 @@ class MainActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         val buttonInventary = findViewById<Button>(R.id.buttonInventary)
+        val reservar = findViewById<Button>(R.id.buttonCrearReservacion)
         val logout = findViewById<ImageButton>(R.id.imageButton_logout)
+
         val progress = findViewById<ProgressBar>(R.id.progressBar)
         recyclerView = findViewById(R.id.recyclerView_tattos)
         layout = findViewById(R.id.layout_load)
@@ -56,7 +58,10 @@ class MainActivity : AppCompatActivity() {
                 viewModel.tatto.collect{ info ->
                     if(info.error){
                         Toast.makeText(this@MainActivity,
-                            "Error al traer la información", Toast.LENGTH_LONG).show()
+                            "Error al traer la información, " +
+                                    "contactese con el desarrollador", Toast.LENGTH_LONG).show()
+                        layout.visibility = View.VISIBLE
+                        progress.visibility = View.GONE
                     }else{
                         if (info.loading){
                              layout.visibility = View.GONE
@@ -69,6 +74,10 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
+
+        reservar.setOnClickListener {
+            startActivity(Intent(this@MainActivity,ListTattosActivity::class.java ))
         }
 
         buttonInventary.setOnClickListener {
