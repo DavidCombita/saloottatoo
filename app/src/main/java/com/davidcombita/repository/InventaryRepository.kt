@@ -23,8 +23,17 @@ class InventaryRepository @Inject constructor(
     suspend fun  getMaterialByTatto(tatto: Int): Response<List<MaterialsTatto>> = apiMaterialService.getMaterialByTatto(tatto)
 
     suspend fun sendReserva(toNumber: String, fecha: String,
-                             style: String, size: String){
-        apiMaterialService.getSendReserva(toNumber, fecha, style, size)
+                             style: String, size: String, name:String,
+                            email:String, idTatto:Int){
+        apiMaterialService.getSendReserva(toNumber, fecha, style, size, name, email, idTatto)
     }
 
+    suspend fun updateMaterial(material: Material): Response<Material> {
+        return apiMaterialService.updateMaterial(material.units, material.idCategory, 0, material.nameProduct,
+            material.nameBrand, material.quantity, material.unitValue)
+    }
+
+    suspend fun updateUnitsById(unitis: Long, idMaterial:Long): Response<Boolean>{
+        return apiMaterialService.updateUnitsById(unitis, idMaterial)
+    }
 }

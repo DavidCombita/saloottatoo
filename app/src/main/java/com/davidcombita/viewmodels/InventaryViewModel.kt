@@ -2,6 +2,7 @@ package com.davidcombita.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.davidcombita.data.models.Material
 import com.davidcombita.data.models.MaterialsUI
 import com.davidcombita.domain.GetMaterialUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,6 +18,8 @@ class InventaryViewModel @Inject constructor(
     private val _material = MutableStateFlow(MaterialsUI())
     val material: StateFlow<MaterialsUI> = _material.asStateFlow()
 
+    private val _updateMateria = MutableStateFlow(false)
+    val updateMateria: StateFlow<Boolean> = _updateMateria.asStateFlow()
     fun getInventary(){
         viewModelScope.launch{
             _material.update { it.copy(loading = true) }
@@ -28,5 +31,18 @@ class InventaryViewModel @Inject constructor(
             }
             _material.update { it.copy(loading = false) }
         }
+    }
+
+    fun updateMaterial(material: Material){
+        viewModelScope.launch{
+            _material.update { it.copy(loading = true) }
+            val updateMaterial = getMaterialUseCase.updateUnits(material.auxUnits-1, material.idMaterial)
+            _updateMateria.value = updateMaterial.isSuccessful
+            _material.update { it.copy(loading = false) }
+        }
+    }
+
+    fun updateNewMaterial(){
+        _updateMateria.value = false
     }
 }

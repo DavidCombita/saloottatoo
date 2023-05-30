@@ -55,6 +55,10 @@ class SharedPreferenceHelper(context: Context) {
         return this.sp?.getString(USER_NAME, "")?: ""
     }
 
+    fun getUserEmail(): String {
+        return this.sp?.getString(USER_EMAIL, "")?: ""
+    }
+
     protected object UserInfoLogin {
         const val USER_LOGIN = "USER_LOGIN"
         const val USER_NAME = "USER_NAME"

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.davidcombita.R
 import com.davidcombita.viewmodels.MainViewModel
 import com.davidcombita.views.adapters.TattoHomeAdapter
+import com.davidcombita.views.adapters.TattoListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,7 +22,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ListTattosActivity : AppCompatActivity() {
 
-    private lateinit var adapter: TattoHomeAdapter
+    private lateinit var adapter: TattoListAdapter
 
     @Inject
     lateinit var viewModel: MainViewModel
@@ -34,7 +35,7 @@ class ListTattosActivity : AppCompatActivity() {
         var recyclerView = findViewById<RecyclerView>(R.id.recyclerView_tattos)
         val progress = findViewById<ProgressBar>(R.id.progressBar)
 
-        adapter = TattoHomeAdapter(this)
+        adapter = TattoListAdapter(this)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = GridLayoutManager(this, 2)
         viewModel.getTattos()

@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.davidcombita.R
 import com.davidcombita.data.models.TattoResponse
+import com.davidcombita.utils.SharedPreferenceHelper
 import com.davidcombita.viewmodels.ReservaViewModel
 import com.davidcombita.views.adapters.GalleryAdapter
 import com.davidcombita.views.adapters.MaterialAdapter
@@ -42,10 +43,14 @@ class ReservActivity : AppCompatActivity() {
     @Inject
     lateinit var viewModel: ReservaViewModel
 
+    private lateinit var sh: SharedPreferenceHelper
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reserv)
+
+        sh = SharedPreferenceHelper(this)
 
         datePicker = findViewById(R.id.etPlannedDate)
         editNumbers = findViewById(R.id.edittext_numSessions)
@@ -123,7 +128,8 @@ class ReservActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             viewModel.sendReserva("+57"+editNumbers.text.toString(), datePicker.text.toString(),
-                tattoInfo?.style?: "blackWork", tattoInfo?.size?: "5x5")
+                tattoInfo?.style?: "blackWork", tattoInfo?.size?: "5x5", sh.getUserName(), sh.getUserEmail(),
+                tattoInfo!!.idTattoo)
             Toast.makeText(this@ReservActivity, "Reservado, pronto nuestro tatuador se contactara contigo",
             Toast.LENGTH_SHORT).show()
             startActivity(Intent(this@ReservActivity, MainActivity::class.java))
@@ -132,7 +138,7 @@ class ReservActivity : AppCompatActivity() {
 
     private fun showDatePickerDialog() {
         val newFragment = DatePickerFragment.newInstance { _, year, month, day ->
-            val selectedDate = day.toString() + " / " + (month + 1) + " / " + year
+            val selectedDate =  year.toString() + "-"+ (month + 1) +"-"+day.toString()
             datePicker.setText(selectedDate)
         }
         newFragment.show(supportFragmentManager, "datePicker")

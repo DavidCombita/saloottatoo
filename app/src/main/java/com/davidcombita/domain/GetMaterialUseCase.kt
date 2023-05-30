@@ -19,7 +19,12 @@ class GetMaterialUseCase @Inject constructor(
     suspend fun getMaterialTattoByTatto(tatto: Int): Response<List<MaterialsTatto>> = materialRepository.getMaterialByTatto(tatto)
 
     suspend fun sendReserva(toNumber: String, fecha: String,
-                            style: String, size: String){
-        materialRepository.sendReserva(toNumber, fecha, style, size)
+                            style: String, size: String, name:String,
+                            email:String, idTatto:Int){
+        materialRepository.sendReserva(toNumber, fecha, style, size, name, email, idTatto)
     }
+
+    suspend fun updateMaterial(material: Material):Response<Material> = materialRepository.updateMaterial(material)
+
+    suspend fun updateUnits(unitis: Long, idMaterial:Long):Response<Boolean> = materialRepository.updateUnitsById(unitis, idMaterial)
 }

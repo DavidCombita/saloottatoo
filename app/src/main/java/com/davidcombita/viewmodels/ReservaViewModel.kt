@@ -33,9 +33,10 @@ class ReservaViewModel @Inject constructor(
     }
 
     fun sendReserva(toNumber: String, fecha: String,
-                    style: String, size: String){
+                    style: String, size: String, name:String,
+                    email:String, idTatto:Int){
         viewModelScope.launch{
-            getMaterialUseCase.sendReserva(toNumber, fecha, style, size)
+            getMaterialUseCase.sendReserva(toNumber, fecha, style, size, name, email, idTatto)
         }
     }
 }

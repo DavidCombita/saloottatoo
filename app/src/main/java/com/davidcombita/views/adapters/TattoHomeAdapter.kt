@@ -40,7 +40,6 @@ class TattoHomeAdapter (val context: Context): RecyclerView.Adapter<TattoViewHol
         }
     }
 
-
     override fun getItemCount(): Int = 3
 
     @SuppressLint("NotifyDataSetChanged")

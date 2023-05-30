@@ -13,15 +13,18 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
 import com.davidcombita.R
+import com.davidcombita.data.models.Material
+import com.davidcombita.utils.CustomAdapter
 import com.davidcombita.viewmodels.InventaryViewModel
 import com.davidcombita.viewmodels.MainViewModel
 import com.davidcombita.views.adapters.InventaryAdapter
+import com.davidcombita.views.adapters.OnItemClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class InventaryActivity : AppCompatActivity() {
+class InventaryActivity : AppCompatActivity(), OnItemClickListener {
 
     @Inject
     lateinit var viewModel: InventaryViewModel
@@ -35,7 +38,8 @@ class InventaryActivity : AppCompatActivity() {
         val recycler = findViewById<RecyclerView>(R.id.recyclerView)
         val add = findViewById<Button>(R.id.button_add_product)
 
-        val adapter = InventaryAdapter()
+        val adapter = InventaryAdapter(this)
+        adapter.setOnItemClickListener(this)
         recycler.adapter = adapter
 
         back.setOnClickListener { onBackPressed() }
@@ -49,7 +53,20 @@ class InventaryActivity : AppCompatActivity() {
                             "Error al traer la información", Toast.LENGTH_LONG).show()
                     }else{
                         progress.visibility = if (info.loading) View.VISIBLE else View.GONE
+                        Toast.makeText(this@InventaryActivity,
+                            "Materias Actualizadas", Toast.LENGTH_SHORT).show()
                         adapter.setList(info.materialInfo)
+                    }
+                }
+            }
+        }
+
+        lifecycleScope.launch{
+            lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED){
+                viewModel.updateMateria.collect{ info ->
+                    if(info){
+                        viewModel.getInventary()
+                        viewModel.updateNewMaterial()
                     }
                 }
             }
@@ -59,5 +76,9 @@ class InventaryActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         viewModel.getInventary()
+    }
+
+    override fun onItemClickUpdate(material: Material) {
+        viewModel.updateMaterial(material)
     }
 }

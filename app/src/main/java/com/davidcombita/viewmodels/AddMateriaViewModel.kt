@@ -44,4 +44,13 @@ class AddMateriaViewModel @Inject constructor(
             _material.update { it.copy(loading = false) }
         }
     }
+
+    fun updateMaterial(material: Material){
+        viewModelScope.launch{
+            _material.update { it.copy(loading = true) }
+            val category = getMaterialUseCase.updateMaterial(material)
+            _saveMateria.value = category.isSuccessful
+            _material.update { it.copy(loading = false) }
+        }
+    }
 }

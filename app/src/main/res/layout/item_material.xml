@@ -43,7 +43,7 @@
             android:paddingStart="10dp"
             android:paddingTop="5dp"
             android:textColor="@color/black"
-            android:text="Cantidad de unidades:"
+            android:text="Cantidad:"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageview_icon_category"
             app:layout_constraintTop_toBottomOf="@+id/textView_nameproduct" />
@@ -52,13 +52,47 @@
             android:id="@+id/textView_numQuantity"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:paddingHorizontal="10dp"
+            android:paddingHorizontal="5dp"
             android:paddingTop="5dp"
             android:textColor="@color/black"
             android:text="15"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView_quantity"
             app:layout_constraintTop_toBottomOf="@+id/textView_nameproduct" />
+
+        <TextView
+            android:id="@+id/textView_units"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:paddingStart="5dp"
+            android:paddingTop="5dp"
+            android:textColor="@color/black"
+            android:text="unidades:"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView_numQuantity"
+            app:layout_constraintTop_toBottomOf="@+id/textView_nameproduct" />
+
+        <TextView
+            android:id="@+id/textView_numuits"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:paddingHorizontal="10dp"
+            android:paddingTop="5dp"
+            android:textColor="@color/black"
+            android:text="15"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView_units"
+            app:layout_constraintTop_toBottomOf="@+id/textView_nameproduct" />
+
+        <Button
+            android:id="@+id/button_substrac_one"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:text="-1"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
                 android:layout_marginTop="20dp"
-                android:text="Descripción"
+                android:text="Marca"
                 android:textColor="@color/black"
                 android:textSize="20dp" />
 
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
                 android:foregroundTint="@color/black"
-                android:hint="Descripción"
+                android:hint="Nombre de la marca"
                 android:textColor="@color/black"
                 android:textColorHint="@color/material_dynamic_neutral10" />
 
